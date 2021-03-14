@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProdutoService {
 
@@ -44,5 +46,20 @@ public class ProdutoService {
     return ProdutoVO.create(entity);
   }
 
-  /*public ProdutoVO update(ProdutoVO produtoVO) {}*/
+  public ProdutoVO update(ProdutoVO produtoVO) {
+    final Optional<Produto> optionalProduto = produtoReposiotry.findById(produtoVO.getId());
+
+    if (!optionalProduto.isPresent()) {
+      new ResourceNotFoundException("No records found for this ID");
+    }
+    return ProdutoVO.create(produtoReposiotry.save(Produto.create(produtoVO)));
+  }
+
+  public void delete(Long id) {
+    var entity =
+        produtoReposiotry
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+    produtoReposiotry.delete(entity);
+  }
 }
