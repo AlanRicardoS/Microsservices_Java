@@ -56,4 +56,13 @@ public class ProdutoController {
     PagedModel<EntityModel<ProdutoVO>> pagedModel = assembler.toModel(produtos);
     return new ResponseEntity<>(pagedModel, HttpStatus.OK);
   }
+
+  @PostMapping(
+      produces = {"application/json", "application/xml", "application/x-yaml"},
+      consumes = {"application/json", "application/xml", "application/x-yaml"})
+  public ProdutoVO create(@RequestBody ProdutoVO produtoVO) {
+    ProdutoVO proVo = produtoService.create(produtoVO);
+    proVo.add(linkTo(methodOn(ProdutoController.class).findById(produtoVO.getId())).withSelfRel());
+    return proVo;
+  }
 }
