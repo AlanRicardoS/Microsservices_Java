@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Microsservices_Java.iml" filepath="$PROJECT_DIR$/.idea/Microsservices_Java.iml" />
       <module fileurl="file://$PROJECT_DIR$/crud/crud.iml" filepath="$PROJECT_DIR$/crud/crud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pagamento/pagamento.iml" filepath="$PROJECT_DIR$/pagamento/pagamento.iml" />
     </modules>
   </component>
 </project>

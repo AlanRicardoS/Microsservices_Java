@@ -62,7 +62,7 @@ public class ProdutoController {
       consumes = {"application/json", "application/xml", "application/x-yaml"})
   public ProdutoVO create(@RequestBody ProdutoVO produtoVO) {
     ProdutoVO proVo = produtoService.create(produtoVO);
-    proVo.add(linkTo(methodOn(ProdutoController.class).findById(produtoVO.getId())).withSelfRel());
+    proVo.add(linkTo(methodOn(ProdutoController.class).findById(proVo.getId())).withSelfRel());
     return proVo;
   }
   @PutMapping(
