@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 import org.modelmapper.ModelMapper;
-
+import org.springframework.hateoas.*;
 import java.io.Serializable;
 
 @JsonPropertyOrder({"id","nome","estoque","preco"})
@@ -14,8 +14,8 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-public class ProdutoVO implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class ProdutoVO extends RepresentationModel<ProdutoVO> implements Serializable {
     @JsonProperty("id")
     private Long id;
     @JsonProperty("nome")
