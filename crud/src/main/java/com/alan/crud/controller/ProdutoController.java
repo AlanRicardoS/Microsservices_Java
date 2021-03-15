@@ -65,4 +65,17 @@ public class ProdutoController {
     proVo.add(linkTo(methodOn(ProdutoController.class).findById(produtoVO.getId())).withSelfRel());
     return proVo;
   }
+  @PutMapping(
+          produces = {"application/json", "application/xml", "application/x-yaml"},
+          consumes = {"application/json", "application/xml", "application/x-yaml"})
+  public ProdutoVO update(@RequestBody ProdutoVO produtoVO) {
+    ProdutoVO proVo = produtoService.update(produtoVO);
+    proVo.add(linkTo(methodOn(ProdutoController.class).findById(produtoVO.getId())).withSelfRel());
+    return proVo;
+  }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> delete(@PathVariable("id") Long id){
+    produtoService.delete(id);
+    return ResponseEntity.ok().build();
+  }
 }
