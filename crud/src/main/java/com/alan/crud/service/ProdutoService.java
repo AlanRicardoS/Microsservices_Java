@@ -3,6 +3,7 @@ package com.alan.crud.service;
 import com.alan.crud.data.vo.ProdutoVO;
 import com.alan.crud.entity.Produto;
 import com.alan.crud.exception.ResourceNotFoundException;
+import com.alan.crud.message.ProdutoSendoMessage;
 import com.alan.crud.repository.ProdutoReposiotry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,16 +16,18 @@ import java.util.Optional;
 public class ProdutoService {
 
   private final ProdutoReposiotry produtoReposiotry;
-
+  private final ProdutoSendoMessage produtoSendoMessage;
   @Autowired
-  public ProdutoService(ProdutoReposiotry produtoReposiotry) {
+  public ProdutoService(ProdutoReposiotry produtoReposiotry, ProdutoSendoMessage produtoSendoMessage) {
     super();
     this.produtoReposiotry = produtoReposiotry;
+    this.produtoSendoMessage = produtoSendoMessage;
   }
 
   public ProdutoVO create(ProdutoVO produtoVO) {
     ProdutoVO produtoVORetorno =
         ProdutoVO.create(produtoReposiotry.save(Produto.create(produtoVO)));
+    produtoSendoMessage.sendMessage(produtoVO);
     return produtoVORetorno;
   }
 
